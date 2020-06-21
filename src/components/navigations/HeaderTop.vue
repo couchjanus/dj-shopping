@@ -1,7 +1,4 @@
 <template>
-    <!-- <div>
-        <h1>{{title}}</h1>
-    </div> -->
     <div class="header_top">
         <div class="container">
             <div class="row">
@@ -32,10 +29,5 @@
 <script>
 export default {
     name: `HeaderTop`,
-    data() {
-        return {
-            title: 'Header Top'
-        }
-    },
 };
 </script>

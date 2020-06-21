@@ -1,13 +1,9 @@
 <template>
-    <div>
-        <h1>{{title}}</h1>
-        <!--header-top-->
+    <header id="header"><!--header-->
         <header-top></header-top>
-        <!--header-middle-->
         <header-middle></header-middle>
-        <!--header-bottom-->
         <header-bottom></header-bottom>
-    </div>
+    </header>
 </template>
 
 <script>
