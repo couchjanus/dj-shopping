@@ -4,8 +4,8 @@
         <div class="single-products">
           <div class="productinfo text-center">
             <img src="/static/images/home/Tabs.png" alt="" />
-            <h2>560.000 dolar</h2>
-            <p>Best-selling products</p>
+            <h2>Price: ${{product_data.price}}</h2>
+            <p>{{product_data.title}}</p>
             <a href="#" class="btn btn-default add-to-cart"
               ><i class="fa fa-shopping-cart"></i>add a cart</a
             >
@@ -23,6 +23,14 @@ export default {
       title: "Single Product",
     };
   },
+  props: {
+      product_data: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    },
   components: {
   },
 };
