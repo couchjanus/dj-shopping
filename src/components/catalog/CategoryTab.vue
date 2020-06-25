@@ -3,54 +3,47 @@
     <div class="category-tab">
         <div class="col-sm-12">
             <ul class="nav nav-tabs">
-                <li v-for="n in 5" :key="n" class="nav-item">
-                    <a :href="`#Tab_00${n}`" data-toggle="tab" :class="{ 'active': n === 1 }">Group {{ n }}</a>
+                <li v-for="category in categories" :key="category.id" class="nav-item">
+                    <a :href="`#Tab_00${category.id}`" data-toggle="tab" :class="{ 'active': category.id === 1 }" @click="getCatId(category.id)"> {{ category.name }}</a>
                 </li>
             </ul>
         </div>
-    
-        <div class="tab-content">
-            <div class="tab-pane fade" v-for="m in 5" :key="m" :id="`Tab_00${m}`" :class="{ 'active in show': m === 1 }">
-              <div class="row pb-2">
-                <SingleProduct 
-                v-for="product in products"
-                :key="product.id"
-                :product_data="product"
-                >
-                </SingleProduct>
-              </div>
-            </div>
-        </div>
+        <tab-content :category_list="categories" :cat_id="cat_id"></tab-content>
     </div>
     <!--/category-tab-->  
 </template>
 
 <script>
 import axios from "axios";
-import SingleProduct from "./SingleProduct";
+import TabContent from "./TabContent";
 export default {
   name: `CategoryTab`,
   data() {
     return {
-      title: "Category Tab",
-      products: [],
+      categories: [],
+      total:0,
+      cat_id:1
     };
   },
   components: {
-    SingleProduct,
+    TabContent,
   },
   created() {
-    this.loadProducts();
+    this.loadCategories();
   },
   methods: {
-    async loadProducts() {
+    async loadCategories() {
       await axios.get(
-        `http://127.0.0.1:8000/api/products/`
+        `http://127.0.0.1:8000/api/categories/`
       )
         .then(response => {
-            this.products = response.data.results;
+            this.categories = response.data.results;
             this.total = response.data.count;
           })
+    },
+    getCatId(id){
+      this.cat_id=id;
+      console.log(this.cat_id);
     }
   }
 };

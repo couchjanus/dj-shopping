@@ -3,7 +3,7 @@
       <div class="product-image-wrapper">
         <div class="single-products">
           <div class="productinfo text-center">
-            <img src="/static/images/home/Tabs.png" alt="" />
+            <img :src="product_data.cover" :alt="product_data.title" />
             <h2>Price: ${{product_data.price}}</h2>
             <p>{{product_data.title}}</p>
             <a href="#" class="btn btn-default add-to-cart"

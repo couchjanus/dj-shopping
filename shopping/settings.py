@@ -125,6 +125,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'dist', 'static'),
 ]
 
+# insta_project/settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public', 'media')
+
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
