@@ -104,8 +104,8 @@
     <div class="footer-bottom" style="direction: ltr !important;">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2020
-                    <a target="_blank" href="#"><b>Group</b></a>. All rights reserved.
+                <p class="pull-left">&copy; {{ year }} | Built with 💗 by
+                    <router-link to="/contributors">The Couch Janus Community</router-link>
                 </p>
             </div>
         </div>
@@ -119,8 +119,9 @@ export default {
     name: `MainFooter`,
     data() {
         return {
-            title: 'Main Footer'
-        }
+            year: new Date().getFullYear(),
+        };
     },
+    
 };
 </script>

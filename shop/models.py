@@ -23,6 +23,7 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     quantity = models.IntegerField()
     cover = models.ImageField(upload_to='images/')
+    recommended = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 

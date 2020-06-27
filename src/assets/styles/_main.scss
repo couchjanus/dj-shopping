@@ -890,6 +890,10 @@ h2.title {
   margin-bottom: 30px;
 }
 
+.product-image-wrapper img{
+  max-width: 100%;
+}
+
 .single-products {
   position: relative;
 }
@@ -922,11 +926,12 @@ h2.title {
 }
 
 .productinfo img {
-  width: 100%;
+  max-width: 100%;
 }
 
 .productinfo {
   position: relative;
+  width: 100%;
 }
 
 .product-overlay {

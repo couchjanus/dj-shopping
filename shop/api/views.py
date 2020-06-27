@@ -23,4 +23,9 @@ class CategoryList(generics.ListAPIView):
         cat = query_params.get('cat')
         result=Product.objects.filter(category=cat)
         return result
-    
+
+class RecommendedProducts(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    def get_queryset(self):
+        result=Product.objects.filter(recommended=True)
+        return result
