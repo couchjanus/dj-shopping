@@ -1,7 +1,7 @@
 <template>
   <layout-default>
     <template v-slot:slider>
-        Slider
+        <Slider></Slider>
     </template>
 
     <template v-slot:default>
@@ -14,11 +14,13 @@
 // @ is an alias to /src
 import LayoutDefault from "@/components/layouts/LayoutDefault.vue";
 import Catalog from "@/components/catalog/Catalog.vue";
+import Slider from "@/components/catalog/Slider.vue";
 export default {
   name: "Home",
   components: {
     LayoutDefault,
-    Catalog
+    Catalog,
+    Slider
   }
 };
 </script>

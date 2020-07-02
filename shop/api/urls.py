@@ -9,4 +9,6 @@ urlpatterns = [
 	path('recommended/', RecommendedProducts.as_view()),
 	
 	path('cat/', CategoryList.as_view(), name='cat'),
+	# 
+	path('sliders/', RecommendedProducts.as_view()),
 ]
