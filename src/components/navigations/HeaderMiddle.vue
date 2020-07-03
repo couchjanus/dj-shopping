@@ -39,9 +39,7 @@
             <a class="nav-link" href="#"><i class="fa fa-lock"></i> login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"
-              ><i class="fa fa-shopping-cart"></i> buy a basket</a
-            >
+            <router-link to="/cart" class="nav-link"><i class="fa fa-shopping-cart"></i> Cart</router-link>
           </li>
         </ul>
       </div>
