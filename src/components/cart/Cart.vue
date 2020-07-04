@@ -1,21 +1,23 @@
 <template>
-    <div class='cart'>
-        <router-link :to="{name: 'Home'}">
-            <div class="nav-link">Back to Catalog</div>
-        </router-link>
-    
-    <h1>{{title}}</h1>
-    
-    <p v-if="!cart_data.length">There are no products in cart...</p>
-    <CartItem
-        v-for="(item, index) in cart_data"
-        :key="index"
-        :item="item"
-    />
-    <div class="cart__total">
-      <p class="total__name">Total:</p>
-      <p>{{cartTotalCost | toFix | formattedPrice}}</p>
-    </div>
+  <div class="cart-popup" v-if="cart.show">
+      <div class="contents">
+        <h1>Your Cart</h1>
+        <p v-if="!cart_data.length">There are no products in cart...</p>
+        <CartItem
+            v-for="(item, index) in cart_data"
+            :key="index"
+            :item="item"
+        />
+        <p class="total__name">
+          <strong>
+            Total: &dollar;{{cartTotalCost | toFix | formattedPrice}}
+          </strong>
+        </p>
+        
+        <input type="submit" value="checkout" />
+        <input type="submit" value="Empty Cart" />
+        <div class="close" @click="close();">x</div>
+      </div>
   </div>
 </template>
 
@@ -46,7 +48,12 @@ export default {
                     cover:"http://127.0.0.1:8000/media/images/02.jpg"
 
                 }
-            ]
+            ],
+        cart: {
+          string: 'Cart',
+          total: 0.00,
+          show: true
+          }
         }
     },
     components: {
@@ -83,28 +90,45 @@ export default {
       }
     },
     methods: {
+      close() { 
+        this.cart.show = false;
+        this.$router.push('/');
+      }
     }
 };
 </script>
 
 <style lang="scss">
-  .cart {
-    margin-bottom: 100px;
-    &__total {
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      padding: 2em 3em;
-      display: flex;
-      justify-content: center;
-      background: green;
-      color: #ffffff;
-      font-size: 20px;
-    }
+  .cart-popup {
+      position: relative;
+      display: inline-block;
 
-    .total__name {
-      margin-right: 2em;
+      & .contents {
+        border: 1px solid;
+        background: white;
+        padding: 1em 3em;
+        max-width: 640px;
+        position: fixed;
+        z-index: 1;
+        top: 1.5em;
+        left: 1em;
+        right: 1em;
+        margin: auto;
+        & input {
+          width: 100%;
+          font-weight: bold;
+          text-transform: uppercase;
+          padding: 0.5em;
+        }
+        & .close {
+          font-weight: bold;
+          font-size: 2em;
+          position: absolute;
+          top: 0;
+          right: 0.5em;
+          border-radius: 50px;
+          cursor: pointer;
+        }
+      }
     }
-  }
 </style>

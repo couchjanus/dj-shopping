@@ -15,6 +15,8 @@
 
     <!-- Footer -->
     <main-footer></main-footer>
+    
+    <div id="overlay"></div>
   </div>
 </template>
 
@@ -39,5 +41,5 @@ export default {
 </script>
 
 <style lang="scss">
-
+   
 </style>
