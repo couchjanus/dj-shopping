@@ -38,6 +38,16 @@
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa fa-lock"></i> login</a>
           </li>
+          <li class="nav-item"><button
+              type="button"
+              class="btn"
+              @click="showModal"
+            ><i class="fa fa-shopping-cart"></i> Open Cart!</button>
+            <Modal
+              v-show="isModalVisible"
+              @close="closeModal"
+            />
+          </li>
           <li class="nav-item">
             <router-link to="/cart" class="nav-link"><i class="fa fa-shopping-cart"></i> Cart</router-link>
           </li>
@@ -51,7 +61,25 @@
 </template>
 
 <script>
+import Modal from '../cart/Modal';
+
 export default {
   name: `HeaderMiddle`,
+    components: {
+      Modal,
+    },
+    data () {
+      return {
+        isModalVisible: false,
+      };
+    },
+    methods: {
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      }
+    },
 };
 </script>
