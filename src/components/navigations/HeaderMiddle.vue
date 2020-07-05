@@ -42,15 +42,14 @@
               type="button"
               class="btn"
               @click="showModal"
-            ><i class="fa fa-shopping-cart"></i> Open Cart!</button>
+            ><i class="fa fa-shopping-cart"></i> Cart: {{CART.length}}</button>
             <Modal
-              v-show="isModalVisible"
+              :cart_data='CART' 
+              v-show="isModalVisible" 
               @close="closeModal"
             />
           </li>
-          <li class="nav-item">
-            <router-link to="/cart" class="nav-link"><i class="fa fa-shopping-cart"></i> Cart</router-link>
-          </li>
+          
         </ul>
       </div>
     </nav>
@@ -62,6 +61,7 @@
 
 <script>
 import Modal from '../cart/Modal';
+import {mapGetters} from 'vuex';
 
 export default {
   name: `HeaderMiddle`,
@@ -72,6 +72,11 @@ export default {
       return {
         isModalVisible: false,
       };
+    },
+    computed: {
+      ...mapGetters([
+        'CART',
+      ]),
     },
     methods: {
       showModal() {

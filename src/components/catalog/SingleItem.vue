@@ -6,17 +6,21 @@
           <img :src="item.cover" :alt="item.title" />
           <h2>{{ item.price }}</h2>
           <p>{{ item.title }}</p>
-          <a href="#" class="btn btn-default add-to-cart"
-            ><i class="fa fa-shopping-cart"></i>add a cart</a
-          >
+          <button
+                class="btn btn-default add-to-cart"
+                @click="addToCart"
+            ><i class="fa fa-shopping-cart"></i> Add to cart
+            </button>
         </div>
         <div class="product-overlay">
           <div class="overlay-content">
             <h2>{{ item.price }}</h2>
             <p>{{ item.title }}</p>
-            <a href="#" class="btn btn-default add-to-cart"
-              ><i class="fa fa-shopping-cart"></i>add a cart</a
-            >
+            <button
+                class="btn btn-default add-to-cart"
+                @click="addToCart"
+            ><i class="fa fa-shopping-cart"></i> Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -49,5 +53,13 @@ export default {
     },
   },
   components: {},
+  methods: {
+      addToCart() {
+        this.$emit('addToCart', this.item);
+      }
+    },
+    mounted() {
+      this.$set(this.item, 'quantity', 1)
+    }
 };
 </script>

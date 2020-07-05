@@ -7,34 +7,18 @@ export default {
     name: 'Modal',
     data() {
         return {
-            title: 'Cart',
-            cart_data: [
-                {
-                    id:1,
-                    title:"Black cat",
-                    price:123,
-                    quantity:3,
-                    cover:"http://127.0.0.1:8000/media/images/01.jpg"
-
-                },
-                {
-                    id:2,
-                    title:"Green dog",
-                    price:231,
-                    quantity:2,
-                    cover:"http://127.0.0.1:8000/media/images/02.jpg"
-
-                }
-            ],
-        cart: {
-          string: 'Cart',
-          total: 0.00,
-          show: true
-          }
         }
     },
     components: {
         CartItem,
+    },
+    props: {
+      cart_data: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     filters: {
       formattedPrice,
@@ -67,83 +51,72 @@ export default {
 </script>
 
 <template>
-  <transition name="modal-fade">
-    <div class="modal-backdrop">
-      <div class="modal"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
-        <header
-          class="modal-header"
-          id="modalTitle"
-        >
+  <div>
+    <div class="overlay">
+      <div class="popup">
+        <header class="modal-header">
           <slot name="header">
             <h1>Your Cart</h1>
             <p v-if="!cart_data.length">There are no products in cart...</p>
-
-            <button
-              type="button"
-              class="btn-close"
-              @click="close"
-              aria-label="Close modal"
-            >
-              x
-            </button>
+            <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
           </slot>
         </header>
-        <section
-          class="modal-body"
-          id="modalDescription"
-        >
-        <div class="contents">
-          <slot name="body">
-            <CartItem
-            v-for="(item, index) in cart_data"
-            :key="index"
-            :item="item"
-        />
-        <p>
-          <strong>
-            Total: &dollar;{{cartTotalCost | toFix | formattedPrice}}
-          </strong>
-        </p>
-        </slot>
-        </div>
+        <section class="modal-body">
+          <div class="contents">
+            <slot name="body">
+              <CartItem
+              v-for="item in cart_data"
+              :key="item.id"
+              :item="item"></CartItem>
+              <p>
+                <strong>
+                  Total: &dollar;{{cartTotalCost | toFix | formattedPrice}}
+                </strong>
+              </p>
+            </slot>
+          </div>
         </section>
         <footer class="modal-footer">
           <slot name="footer">
-            <input type="submit" value="checkout" />
-            <input type="submit" value="Empty Cart" />
-            <button
-              type="button"
-              class="btn-green"
-              @click="close"
-              aria-label="Close modal"
-            >
+            <button type="submit" class="btn-checkout">
+              Checkout
+            </button>
+            <button type="submit" class="btn-empty">
+              Empty Cart
+            </button>
+            <button type="button" class="btn-reset" @click="close" aria-label="Close modal">
               Close me!
             </button>
           </slot>
         </footer>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
+
 <style lang="scss">
-  .modal-backdrop {
+
+  .overlay {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
   }
-
-  .modal {
-    background: #FFFFFF;
+ 
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 50%;
+    position: relative;
+    transition: all 5s ease-in-out;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;
@@ -157,37 +130,24 @@ export default {
   }
 
   .modal-header {
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
+    border-bottom: 1px solid #fe980f;
+    color: #fe980f;
     justify-content: space-between;
   }
 
   .modal-footer {
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid #fe980f;
     justify-content: flex-end;
-    & input {
-          width: 100%;
-          font-weight: bold;
-          text-transform: uppercase;
-          padding: 0.5em;
-    }
   }
 
   .modal-body {
     position: relative;
     padding: 20px 10px;
+    background: white;
     & .contents {
-        border: 1px solid;
-        background: white;
+        border: 1px solid #fe980f;
         padding: 1em 3em;
-        max-width: 640px;
-        position: fixed;
-        z-index: 1;
-        top: 1.5em;
-        left: 1em;
-        right: 1em;
         margin: auto;
-        
       }
   }
 
@@ -197,14 +157,18 @@ export default {
     padding: 20px;
     cursor: pointer;
     font-weight: bold;
-    color: #4AAE9B;
+    color: #fe980f;
     background: transparent;
   }
 
-  .btn-green {
+  .btn-reset, .btn-empty, .btn-checkout {
     color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
+    background: #fe980f;
+    border: 1px solid #fe980f;
     border-radius: 2px;
+  }
+  .btn-reset:hover, .btn-empty:hover, .btn-checkout:hover {
+    color: #fe980f;
+    background: white;
   }
 </style>

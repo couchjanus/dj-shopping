@@ -33,5 +33,8 @@ export default {
     },
   components: {
   },
+  mounted() {
+      this.$set(this.product_data, 'quantity', 1)
+  }
 };
 </script>

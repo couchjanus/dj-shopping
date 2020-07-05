@@ -8,7 +8,7 @@
     <HorizontalCarousel :items="items"
       :options="{responsive: [{start: 992, end: 1200, size: 4}]}">
       <template v-slot:default="{item}">
-        <SingleItem :item="item"></SingleItem>          
+        <SingleItem :item="item" @addToCart="addToCart"></SingleItem>          
       </template>
     </HorizontalCarousel>
 
@@ -18,7 +18,8 @@
 <script>
   import HorizontalCarousel from '../shared/HorizontalCarousel.vue';
   import SingleItem from './SingleItem.vue';
-  import axios from "axios";
+  import {mapActions, mapGetters} from 'vuex'
+
   export default {
     name: `RetailSale`,
     data() {
@@ -30,17 +31,25 @@
       HorizontalCarousel,
       SingleItem
     },
-    created() {
-      this.loadItems();
+    computed: {
+      ...mapGetters([
+        'PRODUCTS',
+        'CART',
+      ]),
+    },
+    mounted() {
+      this.GET_RECOMMENDED_PRODUCTS_FROM_API()
+       .then(() => {
+         this.items = this.PRODUCTS;
+        });
     },
     methods: {
-      async loadItems() {
-      await axios
-        .get(`http://127.0.0.1:8000/api/recommended`)
-        .then((response) => {
-          this.items = response.data.results;
-          this.total = response.data.count;
-        });
+       ...mapActions([
+        'GET_RECOMMENDED_PRODUCTS_FROM_API',
+        'ADD_TO_CART'
+      ]),
+      addToCart(data) {
+        this.ADD_TO_CART(data);
       },
     },
   };
