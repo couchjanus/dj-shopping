@@ -42,6 +42,8 @@ export default {
         .then(response => {
             this.categories = response.data.results;
             this.total = response.data.count;
+
+            console.log('categories: ', this.categories);
           })
     },
     async loadProducts(cat_id) {

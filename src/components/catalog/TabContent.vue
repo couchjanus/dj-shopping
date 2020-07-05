@@ -8,6 +8,7 @@
           v-for="product in displayedProducts"
           :key="product.id"
           :product_data="product"
+          @addToCart="addToCart"
         >
         </SingleProduct>
       </div>
@@ -27,6 +28,8 @@
 
 <script>
 import SingleProduct from "./SingleProduct";
+import {mapActions, mapGetters} from 'vuex'
+
 export default {
   name: `TabContent`,
   props: {
@@ -58,9 +61,19 @@ export default {
       let from = page * perPage - perPage;
       let to = page * perPage;
       return products.slice(from, to);
-    }
+    },
+    ...mapActions([
+        'ADD_TO_CART'
+      ]),
+      addToCart(data) {
+        this.ADD_TO_CART(data);
+      },
   },
+ 
   computed: {
+    ...mapGetters([
+        'CART',
+    ]),
     displayedProducts() {
       return this.paginate(this.products);
     }
@@ -71,6 +84,7 @@ export default {
     }
   },
 };
+
 </script>
 <style scoped>
 

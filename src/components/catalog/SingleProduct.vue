@@ -6,9 +6,12 @@
             <img :src="product_data.cover" :alt="product_data.title" />
             <h2>Price: ${{product_data.price}}</h2>
             <p>{{product_data.title}}</p>
-            <a href="#" class="btn btn-default add-to-cart"
-              ><i class="fa fa-shopping-cart"></i>add a cart</a
-            >
+            
+            <button
+                class="btn btn-default add-to-cart"
+                @click="addToCart"
+            ><i class="fa fa-shopping-cart"></i> Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -35,6 +38,11 @@ export default {
   },
   mounted() {
       this.$set(this.product_data, 'quantity', 1)
-  }
+  },
+  methods: {
+      addToCart() {
+        this.$emit('addToCart', this.product_data);
+      }
+  },
 };
 </script>
