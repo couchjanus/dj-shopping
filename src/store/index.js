@@ -7,7 +7,10 @@ import getters from "./getters/getters";
 
 const actions = {...commonActions, ...apiRequests}
 
-// const actions = {...apiRequests}
+import auth from './modules/auth';
+import password from './modules/password';
+import signup from './modules/signup';
+
 
 Vue.use(Vuex);
 
@@ -19,5 +22,9 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters,
-  modules: {}
+  modules: {
+    auth,
+    password,
+    signup,
+  }
 });

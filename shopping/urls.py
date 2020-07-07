@@ -17,11 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
 urlpatterns = [
     path('', include('shop.urls')),
     path('api/', include('shop.api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
+    
+    url(r'^api/customers/', include('customers.urls')),
+    url(r'^registration/', include('rest_auth.registration.urls')),
+
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]
 

@@ -22,22 +22,24 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto nav-flex-icons" v-if="isAuthenticated">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fa fa-user"></i> user account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fa fa-star"></i> List of favorites</a>
+            </li>
+            <li class="nav-item"><router-link to="/logout">Logout</router-link></li>
+        </ul>
+        <ul class="navbar-nav mr-auto nav-flex-icons" v-else>
+            <li class="nav-item">
+              <router-link  class="nav-link" to="/register"><i class="fa fa-lock"></i> Redister</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link  class="nav-link" to="/login"><i class="fa fa-lock"></i> Login</router-link>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
-          <li class="nav-item">
-            <a class="nav-link" href="#"
-              ><i class="fa fa-user"></i> user account
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"
-              ><i class="fa fa-star"></i> List of favorites</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-lock"></i> login</a>
-          </li>
           <li class="nav-item"><button
               type="button"
               class="btn"
@@ -49,7 +51,6 @@
               @close="closeModal"
             />
           </li>
-          
         </ul>
       </div>
     </nav>
@@ -76,6 +77,8 @@ export default {
     computed: {
       ...mapGetters([
         'CART',
+        'auth', [
+        'isAuthenticated'],
       ]),
     },
     methods: {
